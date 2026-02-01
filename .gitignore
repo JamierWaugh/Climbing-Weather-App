@@ -1,0 +1,4 @@
+#Ignoring generated files and environmental variables
+bin/
+obj/
+.env
