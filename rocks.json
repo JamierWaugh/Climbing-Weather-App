@@ -1,58 +1,137 @@
 {
-  "rocks": [
-    {
-      "type": "Sandstone",
-      "porosity_factor": 0.5,
-      "notes": "Highly porous and fragile; even small amounts of recent rain weaken holds. Avoid climbing until rock feels completely dry, cracks may stay damp for several days."
+"rocks":{
+    "sandstone" : {
+        "thresholds": {
+            "24":[
+                {"min": 0, "max": 0, "severity":0},
+                {"min": 0.0, "max":0.5, "severity":1},
+                {"min": 0.5, "max": 1, "severity":2},
+                {"min": 1, "max": 99999, "severity":3}
+            ],
+            "72":[
+                {"min": 0, "max": 2, "severity":0},
+                {"min": 2, "max":4, "severity":1},
+                {"min": 4, "max": 6, "severity":2},
+                {"min": 6, "max": 99999, "severity":3}
+            ],
+            "168":[
+                {"min": 0, "max": 6, "severity":0},
+                {"min": 6, "max":10, "severity":1},
+                {"min": 10, "max": 15, "severity":2},
+                {"min": 15, "max": 99999, "severity":3}
+            ]
+        },
+        "notes": "Highly porous and fragile; even small amounts of recent rain weaken holds. Avoid climbing until rock feels completely dry, cracks may stay damp for several days."
     },
-    {
-      "type": "Gritstone",
-      "porosity_factor": 0.5,
-      "notes": "Tougher than sandstone but still porous; wetting can damage edges and slopers. Shaded or sheltered faces retain moisture longer."
+    "gritstone": {
+        "thresholds": {
+            "24":[
+                {"min": 0, "max": 0, "severity":0},
+                {"min": 0.0, "max":1, "severity":1},
+                {"min": 1, "max": 3, "severity":2},
+                {"min": 3, "max": 99999, "severity":3}
+            ],
+            "72":[
+                {"min": 0, "max": 4, "severity":0},
+                {"min": 4, "max":8, "severity":1},
+                {"min": 8, "max": 12, "severity":2},
+                {"min": 12, "max": 99999, "severity":3}
+            ],
+            "168":[
+                {"min": 0, "max": 10, "severity":0},
+                {"min": 10, "max":20, "severity":1},
+                {"min": 20, "max": 30, "severity":2},
+                {"min": 30, "max": 99999, "severity":3}
+            ]
+        },
+        "notes": "Tougher than sandstone but still porous; wetting can damage edges and slopers. Shaded or sheltered faces retain moisture longer."
+    },  
+    "limestone": {
+        "thresholds": {
+            "24":[
+                {"min": 0, "max": 2, "severity":0},
+                {"min": 2, "max":5, "severity":1},
+                {"min": 5, "max": 10, "severity":2},
+                {"min": 10, "max": 99999, "severity":3}
+            ],
+            "72":[
+                {"min": 0, "max": 8, "severity":0},
+                {"min": 8, "max":15, "severity":1},
+                {"min": 15, "max": 25, "severity":2},
+                {"min": 25, "max": 99999, "severity":3}
+            ],
+            "168":[
+                {"min": 0, "max": 20, "severity":0},
+                {"min": 20, "max":35, "severity":1},
+                {"min": 35, "max": 50, "severity":2},
+                {"min": 50, "max": 99999, "severity":3}
+            ]
+        },
+        "notes": "Moderately porous; dries faster but damp cracks and pockets reduce friction and protection reliability. Inspect before climbing."
     },
-    {
-      "type": "Limestone",
-      "porosity_factor": 1,
-      "notes": "Moderately porous; dries faster but damp cracks and pockets reduce friction and protection reliability. Inspect before climbing."
+    "slate" : {
+        "thresholds": {
+            "24":[
+                {"min": 0, "max": 3, "severity":0},
+                {"min": 3, "max":7, "severity":1},
+                {"min": 7, "max": 15, "severity":2},
+                {"min": 15, "max": 99999, "severity":3}
+            ],
+            "72":[
+                {"min": 0, "max": 10, "severity":0},
+                {"min": 10, "max":25, "severity":1},
+                {"min": 25, "max": 40, "severity":2},
+                {"min": 40, "max": 99999, "severity":3}
+            ],
+            "168":[
+                {"min": 0, "max": 30, "severity":0},
+                {"min": 30, "max":60, "severity":1},
+                {"min": 60, "max": 90, "severity":2},
+                {"min": 90, "max": 99999, "severity":3}
+            ]
+        },
+        "notes": "Dense and fine-grained; dries reasonably quickly but can become very slippery when wet. Layered surfaces may delaminate if climbed wet."
     },
-    {
-      "type": "Slate",
-      "porosity_factor": 1,
-      "notes": "Dense and fine-grained; dries reasonably quickly but can become very slippery when wet. Layered surfaces may delaminate if climbed wet."
-    },
-    {
-      "type": "Chalk",
-      "porosity_factor": 1,
-      "notes": "Brittle, soft rock; moisture reduces friction and can erode small features. Avoid climbing after rain until surface is dry and chalk has returned."
-    },
-    {
-      "type": "Granite",
-      "porosity_factor": 2,
-      "notes": "Very low porosity; surface dries quickly. Shaded cracks or depressions may hold water, so check for slick spots. Generally safe sooner than sedimentary rocks."
+    "granite": {
+        "thresholds": {
+            "24":[
+                {"min": 0, "max": 5, "severity":0},
+                {"min": 5, "max":10, "severity":1},
+                {"min": 10, "max": 20, "severity":2},
+                {"min": 20, "max": 99999, "severity":3}
+            ],
+            "72":[
+                {"min": 0, "max": 15, "severity":0},
+                {"min": 15, "max":30, "severity":1},
+                {"min": 30, "max": 45, "severity":2},
+                {"min": 45, "max": 99999, "severity":3}
+            ],
+            "168":[
+                {"min": 0, "max": 40, "severity":0},
+                {"min": 40, "max":70, "severity":1},
+                {"min": 70, "max": 100, "severity":2},
+                {"min": 100, "max": 99999, "severity":3}
+            ]
+        },
+        "notes": "Very low porosity; surface dries quickly. Shaded cracks or depressions may hold water, so check for slick spots. Generally safe sooner than sedimentary rocks."
     }
-  ],
-  "wetness_score_interpretation": [
-    {
-        "logic": "Lower",
-        "score": [5], 
-        "recommendation": "Climb should be OK"
     },
-    {
-        "logic": "Range",
-        "score": [5,12], 
-        "recommendation": "Caution / Maybe"
+"severity_levels":{
+    "0": {
+        "Verdict": "Ideal",
+        "Meaning": "Ideal - Rock is dry enough to climb, minimal risk of damage."
     },
-    {
-        "logic": "Upper",
-        "score": [12], 
-        "recommendation": "Too wet; avoid climbing"
+    "1": {
+        "Verdict": "Caution",
+        "Meaning": "Caution - Slightly wet, climbing possible but not ideal."
+    },
+    "2": {
+        "Verdict": "Wet",
+        "Meaning": "Wet - Rock is wet; climbing discouraged to avoid damage or slipping."
+    },
+    "3": {
+        "Verdict": "Do Not Climb",
+        "Meaning": "Very wet; climbing likely unsafe and damaging."
     }
-  ],
-  "hour_weights": [
-    {
-        "24": 2,
-        "72": 1,
-        "168": 0.25
-    }
-  ]
+}
 }

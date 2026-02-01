@@ -86,7 +86,7 @@ class Weather
 
                 //TO DO: implement rain score here
 
-                return GetRainScore(current_hour, hourly_precipitation);
+                return await GetSeverityList(current_hour, hourly_precipitation);
 
             }
             catch (Exception e)
@@ -133,7 +133,6 @@ class Weather
             return location;
             
         }
-
         catch (HttpRequestException e)
         {
             Console.WriteLine($"Error with exception {e}");
@@ -143,43 +142,55 @@ class Weather
 
     }
 
-    static List<int> GetRainScore(int current_hour, double[] hourly_precipitation)
+    static async Task<List<int>> GetSeverityList(int current_hour, double[] hourly_precipitation)
     {
         //Rain score array
-        List<int> rain_score_list = new List<int>();
+        List<int> severity_list = new List<int>();
         //167 is the index representing the start of present day, every 24 indexes is the start of the next day
         for(int i=current_hour+167; i < hourly_precipitation.Length-24; i += 24)
         {
-            int rain_score;
+            int severity = -1;
             //Last 24 hours
-            double pr_24 = GetHoursAveragePrecipitation(i, 24, hourly_precipitation);
+            double pr_24 = GetTotalPrecipitation(i, 24, hourly_precipitation);
             //Last 72 hours
-            double pr_72 = GetHoursAveragePrecipitation(i, 72, hourly_precipitation);
+            double pr_72 = GetTotalPrecipitation(i, 72, hourly_precipitation);
             //Last 7 days
-            double pr_168 = GetHoursAveragePrecipitation(i, 168, hourly_precipitation);
+            double pr_168 = GetTotalPrecipitation(i, 168, hourly_precipitation);
 
             //TO DO: Read from json for actual RPF and weights, for now we use placeholders
-            double w_24 = 2;
-            double w_72 = 1;
-            double w_168 = 0.5;
-            double RPF = 1;
 
-            rain_score = (int)Math.Ceiling((w_24 * pr_24 + w_72 * pr_72 + w_168 * pr_168)/RPF);
-
-            rain_score_list.Add(rain_score);
+           try
+            {
+                //For testing, predetermine type:
+                string rock_type = "sandstone";
+                //Read from rocks.json
+                string rocks_json = await File.ReadAllTextAsync(
+                    Path.Combine(AppContext.BaseDirectory + "rocks.json"));
+                JsonDocument doc = JsonDocument.Parse(rocks_json);
+                JsonElement rock = doc.RootElement
+                    .GetProperty("rocks")
+                    .GetProperty(rock_type); 
+                //Get max severity of all rainfall windows
+                severity = Math.Max(GetSeverity(rock, "24", pr_24), Math.Max(GetSeverity(rock, "72", pr_72), GetSeverity(rock, "168", pr_168)));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error with exception {e}");
+                return [];
+            }
+            severity_list.Add(severity);
         }
-
-        foreach(int score in rain_score_list)
+        foreach(int severity in severity_list)
         {
-            Console.Write(score + ", ");
+            Console.Write(severity + ", ");
         }
         Console.WriteLine();
-        return rain_score_list;
+        return severity_list;
     }
 
-    static double GetHoursAveragePrecipitation(int current_hour_index, int hours, double[] hourly_precipitation)
+    static double GetTotalPrecipitation(int current_hour_index, int hours, double[] hourly_precipitation)
     {
-        double total_average_precipitation = 0.00;
+        double total_precipitation = 0.00;
 
         //168: last 7 days, 72: last 3 days, 23: last day
 
@@ -188,9 +199,25 @@ class Weather
 
         for (int i = current_hour_index-hours; i <= current_hour_index; i+=1)
         {
-            total_average_precipitation += hourly_precipitation[i];
+            total_precipitation += hourly_precipitation[i];
         }
 
-        return total_average_precipitation/hours;
+        return total_precipitation;
+    }
+
+    static int GetSeverity(JsonElement rock_json, string hour_time, double total_precipitation)
+    {
+        int severity = 0;
+        //For every range in the hours, 24 hours, 72 hours, etc. Find which severity is applicable
+        JsonElement hours = rock_json.GetProperty("thresholds").GetProperty(hour_time);
+        foreach(JsonElement range in hours.EnumerateArray())
+        {
+            //If the total precipitation is inside the min and max, take that severity find the max of all severities and return
+            if (range.GetProperty("min").GetDouble() < total_precipitation && total_precipitation < range.GetProperty("max").GetDouble())
+            {
+                severity = Math.Max(severity, range.GetProperty("severity").GetInt32());
+            }
+        }  
+        return severity;
     }
 }
