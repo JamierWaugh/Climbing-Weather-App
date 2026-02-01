@@ -6,6 +6,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using Microsoft.VisualBasic;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+using System.Net;
 /* 
 Logic for getting the historical precipitation
 */
@@ -42,6 +44,48 @@ class Weather
         //Calculate rain score
         else
         {
+            DateTime now = DateTime.Now;
+            //Get a week from today, we know that the present day is index 167 in the json
+            DateTime week_ago = now.AddDays(-7);
+            //Get 10 days into the future (for a forecast)
+            now = now.AddDays(10);
+
+            string now_str = now.ToString("yyyy-MM-dd");
+            string week_ago_str = week_ago.ToString("yyyy-MM-dd");
+
+            string url = $"https://historical-forecast-api.open-meteo.com/v1/forecast?latitude={location[0]}&longitude={location[1]}&start_date={week_ago_str}&end_date={now_str}&hourly=precipitation";
+            Console.WriteLine(url);
+            //Create HttpClient
+            HttpClient client = new HttpClient();
+
+            try
+            {
+                //Get response
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                //Throw exception
+                response.EnsureSuccessStatusCode();
+
+                //Read response content
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+                //Parse into Json Element
+                JsonDocument doc = JsonDocument.Parse(responseBody);
+                JsonElement root = doc.RootElement;
+
+                JsonElement precipitationElement = root.GetProperty("hourly").GetProperty("precipitation");
+
+                //Turn precipitation element into int[] by enumerating the array and converting each element into an integer
+                double[] hourly_precipitation = precipitationElement.EnumerateArray().Select(e => e.GetDouble()).ToArray();
+
+                Console.WriteLine(hourly_precipitation.Length);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error with exception {e}");
+            }
+            
             return 999;
         }
 
