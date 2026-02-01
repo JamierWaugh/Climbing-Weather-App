@@ -1,0 +1,51 @@
+{
+  "rocks": [
+    {
+      "type": "Sandstone",
+      "porosity_factor": 0.5,
+      "notes": "Highly porous and fragile; even small amounts of recent rain weaken holds. Avoid climbing until rock feels completely dry, cracks may stay damp for several days."
+    },
+    {
+      "type": "Gritstone",
+      "porosity_factor": 0.5,
+      "notes": "Tougher than sandstone but still porous; wetting can damage edges and slopers. Shaded or sheltered faces retain moisture longer."
+    },
+    {
+      "type": "Limestone",
+      "porosity_factor": 1,
+      "notes": "Moderately porous; dries faster but damp cracks and pockets reduce friction and protection reliability. Inspect before climbing."
+    },
+    {
+      "type": "Slate",
+      "porosity_factor": 1,
+      "notes": "Dense and fine-grained; dries reasonably quickly but can become very slippery when wet. Layered surfaces may delaminate if climbed wet."
+    },
+    {
+      "type": "Chalk",
+      "porosity_factor": 1,
+      "notes": "Brittle, soft rock; moisture reduces friction and can erode small features. Avoid climbing after rain until surface is dry and chalk has returned."
+    },
+    {
+      "type": "Granite",
+      "porosity_factor": 2,
+      "notes": "Very low porosity; surface dries quickly. Shaded cracks or depressions may hold water, so check for slick spots. Generally safe sooner than sedimentary rocks."
+    }
+  ],
+  "wetness_score_interpretation": [
+    {
+        "logic": "Lower",
+        "score": [5], 
+        "recommendation": "Climb should be OK"
+    },
+    {
+        "logic": "Range",
+        "score": [5,12], 
+        "recommendation": "Caution / Maybe"
+    },
+    {
+        "logic": "Upper",
+        "score": [12], 
+        "recommendation": "Too wet; avoid climbing"
+    }
+  ]
+}
