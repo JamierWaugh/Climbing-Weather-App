@@ -47,5 +47,12 @@
         "score": [12], 
         "recommendation": "Too wet; avoid climbing"
     }
+  ],
+  "hour_weights": [
+    {
+        "24": 2,
+        "72": 1,
+        "168": 0.25
+    }
   ]
 }
