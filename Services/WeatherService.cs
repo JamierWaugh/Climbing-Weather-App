@@ -13,24 +13,12 @@ using System.Runtime.InteropServices;
 Logic for getting the historical precipitation
 */
 
-class Weather
+namespace Climbing_Weather_App.Weather;
+public class Weather
 {
-
-    static async Task Main(string[] args)
-    {
-        //Test GetWeatherValues
-        List<int> score_test_1 = await GetWeatherValues("limestone", "NE1 7RU");
-        List<int> score_test_2 = await GetWeatherValues("gritstone", "NOTAPOSTCODE*");
-        List<int> score_test_3 = await GetWeatherValues("sandstone", "EH1 2EN");
-
-        Debug.Assert(score_test_1.Count() == 10, "Test 1 must be equal to 10, as postcode does exist and data is found so we expect 10 days of rain scores to be returned ");
-        Debug.Assert(score_test_2.Count() == 0, "Test 2 must be equal to 0, as postcode does not exist");
-        Debug.Assert(score_test_3.Count() == 10 , "Test 3 must be equal to 10, as postcode does exist and data is found so we expect 10 days of rain scores to be returned "); //Need to update test to check highscores
-        
-        Console.WriteLine("Tests passed");
-    }
-    //Return rain score
-    static async Task<List<int>> GetWeatherValues(string rock_type, string postcode)
+    //TO DO
+    //Find a new way to test now it has become a web api (main removed)
+    public  async Task<List<int>> GetWeatherValues(string rock_type, string postcode)
     {
 
         double[] location = await GetLatLon(postcode);
@@ -180,9 +168,18 @@ class Weather
             }
             severity_list.Add(severity);
         }
+        int days_in_future = 0;
+        DateTime now =  DateTime.Now;
+        //Output here
+        //Output into console, eventually into web app
         foreach(int severity in severity_list)
-        {
-            Console.Write(severity + ", ");
+        {  
+            now = now.AddDays(days_in_future);
+            string now_output = now.ToString("yyyy-MM-dd");
+
+            Console.Write(now_output + ": " + severity + ", ");
+            
+            days_in_future++;
         }
         Console.WriteLine();
         return severity_list;
