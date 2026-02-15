@@ -4,15 +4,28 @@ using RocksStartService.RockTypeService;
 //Create builder for app
 var builder = WebApplication.CreateBuilder(args);
 
+//Add CORS for communication with front end
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddOpenApi();
+
+//Caches rock type json
+builder.Services.AddSingleton<RockTypeService>();
 
 //Add controllers and services
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<Weather>();
 
-//Caches rock type json
-builder.Services.AddSingleton<RockTypeService>();
+
 
 //Build app
 var app = builder.Build();
@@ -25,6 +38,8 @@ if (app.Environment.IsDevelopment())
 
 //Link controllers to app
 app.MapControllers();
+
+app.UseCors();
 
 //Run app
 app.Run();

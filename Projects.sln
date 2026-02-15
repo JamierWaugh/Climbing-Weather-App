@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Climbing_Weather_App", "Climbing_Weather_App\backend\Climbing_Weather_App.csproj", "{E61B5435-DC08-6C36-7EB1-3B2EB94CAEA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Climbing_Weather_App", "backend\Climbing_Weather_App.csproj", "{E61B5435-DC08-6C36-7EB1-3B2EB94CAEA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

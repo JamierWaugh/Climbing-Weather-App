@@ -1,6 +1,6 @@
 {
 "rocks":{
-    "sandstone" : {
+    "Sandstone" : {
         "thresholds": {
             "24":[
                 {"min": 0, "max": 0, "severity":0},
@@ -23,7 +23,7 @@
         },
         "notes": "Highly porous and fragile; even small amounts of recent rain weaken holds. Avoid climbing until rock feels completely dry, cracks may stay damp for several days."
     },
-    "gritstone": {
+    "Gritstone": {
         "thresholds": {
             "24":[
                 {"min": 0, "max": 0, "severity":0},
@@ -46,7 +46,7 @@
         },
         "notes": "Tougher than sandstone but still porous; wetting can damage edges and slopers. Shaded or sheltered faces retain moisture longer."
     },  
-    "limestone": {
+    "Limestone": {
         "thresholds": {
             "24":[
                 {"min": 0, "max": 2, "severity":0},
@@ -69,7 +69,7 @@
         },
         "notes": "Moderately porous; dries faster but damp cracks and pockets reduce friction and protection reliability. Inspect before climbing."
     },
-    "slate" : {
+    "Slate" : {
         "thresholds": {
             "24":[
                 {"min": 0, "max": 3, "severity":0},
@@ -92,7 +92,7 @@
         },
         "notes": "Dense and fine-grained; dries reasonably quickly but can become very slippery when wet. Layered surfaces may delaminate if climbed wet."
     },
-    "granite": {
+    "Granite": {
         "thresholds": {
             "24":[
                 {"min": 0, "max": 5, "severity":0},

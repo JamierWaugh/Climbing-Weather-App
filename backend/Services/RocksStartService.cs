@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RocksStartService.RockTypeService;
 /* 
@@ -28,9 +29,14 @@ public class RockTypeService
 
 
     //Uses hashset to quickly check if there is a match
-     public bool IsValidRock(string rockType)
+    public bool IsValidRock(string rockType)
     {
         return _rockTypes.Contains(rockType);
+    }
+
+    public HashSet<string> GetRocks()
+    {
+        return _rockTypes;
     }
 
 }
