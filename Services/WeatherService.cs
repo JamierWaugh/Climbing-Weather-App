@@ -67,7 +67,7 @@ public class Weather
 
                 JsonElement precipitationElement = root.GetProperty("hourly").GetProperty("precipitation");
 
-                //Turn precipitation element into int[] by enumerating the array and converting each element into an integer
+                //Turn precipitation element into double[] by enumerating the array and converting each element into an integer
                 double[] hourly_precipitation = precipitationElement.EnumerateArray().Select(e => e.GetDouble()).ToArray();
 
                 Console.WriteLine(hourly_precipitation.Length);
