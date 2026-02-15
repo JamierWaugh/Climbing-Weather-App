@@ -13,3 +13,6 @@ It is unwise to climb on rock when it is wet, it not only impacts safety but can
 My latest calculation method involves a severity scale. The algorithm looks at total rainfall over the last 24 hours, 72 hours, and 7 days - with an appropriate severity scale for each rock type based on total rainfall over the three time periods. The algorithm then takes the highest severity over any period (lean on side of caution) and outputs this as the "severity". 
 
 I have implemented the weather api such that it checks the present day and the next 10 days, this can be used to signify other days in the near future that would be better to climb on. I am still happy to tweak values and potentially include other weather factors but I am happy for now. I believe this new system is a massive improvement on the old.
+
+### Running the program
+Currently "dotnet run" runs the backend while "npm run dev" runs the frontend
