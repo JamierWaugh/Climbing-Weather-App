@@ -74,7 +74,7 @@ public class Weather
 
                 //TO DO: implement rain score here
 
-                return await GetSeverityList(current_hour, hourly_precipitation);
+                return await GetSeverityList(current_hour, hourly_precipitation, rock_type);
 
             }
             catch (Exception e)
@@ -130,7 +130,7 @@ public class Weather
 
     }
 
-    static async Task<List<int>> GetSeverityList(int current_hour, double[] hourly_precipitation)
+    static async Task<List<int>> GetSeverityList(int current_hour, double[] hourly_precipitation, string rock_type)
     {
         //Rain score array
         List<int> severity_list = new List<int>();
@@ -149,8 +149,6 @@ public class Weather
 
            try
             {
-                //For testing, predetermine type:
-                string rock_type = "sandstone";
                 //Read from rocks.json
                 string rocks_json = await File.ReadAllTextAsync(
                     Path.Combine(AppContext.BaseDirectory + "rocks.json"));
@@ -168,18 +166,15 @@ public class Weather
             }
             severity_list.Add(severity);
         }
-        int days_in_future = 0;
         DateTime now =  DateTime.Now;
         //Output here
         //Output into console, eventually into web app
         foreach(int severity in severity_list)
         {  
-            now = now.AddDays(days_in_future);
             string now_output = now.ToString("yyyy-MM-dd");
 
             Console.Write(now_output + ": " + severity + ", ");
-            
-            days_in_future++;
+            now = now.AddDays(1); //Fixed output issue where days got progressively larger
         }
         Console.WriteLine();
         return severity_list;
